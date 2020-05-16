@@ -23,7 +23,6 @@ int main(int argc,char* argv[]){
     }
     
     
-    cout<<janMean<<"  "<<january[0]<<"  "<<juneMean<<endl;
     
     MatrixXd m(2,2);     
     double varianceX=0;
@@ -35,16 +34,24 @@ int main(int argc,char* argv[]){
         varianceY+=(june[i]*june[i]);
         varianceXY+=(january[i]*june[i]);
     }
-    m(0,0)=varianceX/(january.size()-1);
     
-    m(1,1)=varianceY/(june.size()-1);
+    varianceX=varianceX/(january.size()-1);
+    m(0,0)=varianceX;
     
+    varianceY=varianceY/(june.size()-1);
+    m(1,1)=varianceY;
     varianceXY=varianceXY/(january.size()-1);
     m(0,1)=varianceXY;
     m(1,0)=varianceXY;
-    cout<<m<<endl;
-    SelfAdjointEigenSolver<MatrixXd> es(m);
-    //EigenSolver<MatrixXd> es(m);
-    cout << "The eigenvalues of M are:" << endl << es.eigenvalues() << endl;
+    
+    EigenSolver<MatrixXd> es(m);
+    cout << "The eigenvalues of A are:" << endl << es.eigenvalues().real() << endl<<endl;;
+    cout << "The matrix of eigenvectors, V, is:" << endl << es.eigenvectors().real() << endl << endl;
+    cout<<"Co Variance Matrix is:"<<endl;
+    cout<<m<<endl<<endl;
+    double totalVariance=varianceX+varianceY;
+    cout<< "The total variance is: "<<endl<<totalVariance<<endl;
+    cout<<"The total % Variance for principle component 1 is: "<<((es.eigenvalues()[0]/totalVariance).real())*100<<"%"<<endl;
+    cout<<"The total % Variance for principle component 2 is: "<<((es.eigenvalues()[1]/totalVariance).real())*100<<"%"<<endl;
 
 }
