@@ -42,6 +42,9 @@ int main(int argc,char* argv[]){
     varianceXY=varianceXY/(january.size()-1);
     m(0,1)=varianceXY;
     m(1,0)=varianceXY;
-cout<<m<<endl;
+    cout<<m<<endl;
+    SelfAdjointEigenSolver<MatrixXd> es(m);
+    //EigenSolver<MatrixXd> es(m);
+    cout << "The eigenvalues of M are:" << endl << es.eigenvalues() << endl;
 
 }
