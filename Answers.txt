@@ -1,0 +1,16 @@
+The eigenvalues of A are:
+154.311
+9.16296
+
+The matrix of eigenvectors, V, is:
+ 0.939141 -0.343532
+ 0.343532  0.939141
+
+Co Variance Matrix is:
+137.181 46.8283
+46.8283 26.2925
+
+The total variance is: 
+163.474
+The total % Variance for principle component 1 is: 94.3948%
+The total % Variance for principle component 2 is: 5.60516%

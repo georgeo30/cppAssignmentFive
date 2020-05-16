@@ -1,6 +1,8 @@
 #include "Eigen/Dense"
 #include "values.hpp"
 #include <iostream>
+#include <fstream>
+
 using namespace Eigen;
 using namespace std;
 int main(int argc,char* argv[]){
@@ -43,15 +45,20 @@ int main(int argc,char* argv[]){
     varianceXY=varianceXY/(january.size()-1);
     m(0,1)=varianceXY;
     m(1,0)=varianceXY;
-    
+        double totalVariance=varianceX+varianceY;
+
     EigenSolver<MatrixXd> es(m);
-    cout << "The eigenvalues of A are:" << endl << es.eigenvalues().real() << endl<<endl;;
-    cout << "The matrix of eigenvectors, V, is:" << endl << es.eigenvectors().real() << endl << endl;
-    cout<<"Co Variance Matrix is:"<<endl;
-    cout<<m<<endl<<endl;
-    double totalVariance=varianceX+varianceY;
-    cout<< "The total variance is: "<<endl<<totalVariance<<endl;
-    cout<<"The total % Variance for principle component 1 is: "<<((es.eigenvalues()[0]/totalVariance).real())*100<<"%"<<endl;
-    cout<<"The total % Variance for principle component 2 is: "<<((es.eigenvalues()[1]/totalVariance).real())*100<<"%"<<endl;
+    ofstream myfile;
+    myfile.open ("Answers.txt");
+    myfile << "The eigenvalues of A are:" << endl << es.eigenvalues().real() << endl<<endl;;
+    myfile << "The matrix of eigenvectors, V, is:" << endl << es.eigenvectors().real() << endl << endl;
+    myfile<<"Co Variance Matrix is:"<<endl;
+    myfile<<m<<endl<<endl;
+    myfile<< "The total variance is: "<<endl<<totalVariance<<endl;
+    myfile<<"The total % Variance for principle component 1 is: "<<((es.eigenvalues()[0]/totalVariance).real())*100<<"%"<<endl;
+    myfile<<"The total % Variance for principle component 2 is: "<<((es.eigenvalues()[1]/totalVariance).real())*100<<"%"<<endl;
+    myfile.close();
+    cout<<"Answers have been written to a text file called Answers.txt"<<endl;
+    return 0;
 
 }
